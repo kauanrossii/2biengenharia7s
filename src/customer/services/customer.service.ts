@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { Customer } from "../entities/customer";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+import { CreateCustomerDto } from "../controllers/dtos/create-customer.dto";
 
 @Injectable()
 export class CustomerService {
@@ -17,17 +18,17 @@ export class CustomerService {
         return this.customersRepository.findOneBy({ id });
     }
 
-    async create(customer: Customer): Promise<number | null> {
+    async create(dto: CreateCustomerDto): Promise<number | null> {
         const duplicatedCustomer = await this.customersRepository.exists({where: [
-            {name: customer.name },
-            {email: customer.email }
+            {name: dto.name },
+            {email: dto.email }
         ]});
 
         if (duplicatedCustomer) {
             throw new Error("There is already a customer with same name or email.");
         }
         
-        const savedCustomer = await this.customersRepository.save(customer);
+        const savedCustomer = await this.customersRepository.save(dto);
         return savedCustomer.id;
     }
 

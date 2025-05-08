@@ -1,0 +1,9 @@
+services:
+  database:
+    image: postgres:16.2-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mypass123@
+      POSTGRES_DB: db_auto_repair_shop
+    ports:
+      - 5432:5432
