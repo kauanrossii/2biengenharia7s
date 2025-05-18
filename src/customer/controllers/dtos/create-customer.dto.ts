@@ -1,4 +1,4 @@
-import { CustomerType } from "src/customer/entities/customer-type";
+import { CustomerType } from 'src/customer/entities/customer-type';
 
 export class CreateCustomerDto {
     id: number;

@@ -1,5 +1,5 @@
-import { Customer } from "src/customer/entities/customer";
-import { CustomerType } from "src/customer/entities/customer-type";
+import { Customer } from 'src/customer/entities/customer';
+import { CustomerType } from 'src/customer/entities/customer-type';
 
 export class CustomerDto {
     id: number;
@@ -8,7 +8,13 @@ export class CustomerDto {
     governmentIdentification: string;
     type: CustomerType;
 
-    constructor(id: number, name: string, email: string, governmentIdentification: string, type: CustomerType) {
+    constructor(
+        id: number,
+        name: string,
+        email: string,
+        governmentIdentification: string,
+        type: CustomerType
+    ) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -24,5 +30,5 @@ export class CustomerDto {
             customer.governmentIdentification,
             customer.type
         );
-    }    
+    }
 }

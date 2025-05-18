@@ -1,14 +1,15 @@
-import { Injectable } from "@nestjs/common";
-import { Customer } from "../entities/customer";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { CreateCustomerDto } from "../controllers/dtos/create-customer.dto";
+import { Injectable } from '@nestjs/common';
+import { Customer } from '../entities/customer';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { CreateCustomerDto } from '../controllers/dtos/create-customer.dto';
 
 @Injectable()
 export class CustomerService {
     constructor(
-        @InjectRepository(Customer) private customersRepository: Repository<Customer>
-    ) { }
+        @InjectRepository(Customer)
+        private customersRepository: Repository<Customer>
+    ) {}
 
     findAllAsync(): Promise<Customer[]> {
         return this.customersRepository.find();
@@ -19,20 +20,21 @@ export class CustomerService {
     }
 
     async create(dto: CreateCustomerDto): Promise<number | null> {
-        const duplicatedCustomer = await this.customersRepository.exists({where: [
-            {name: dto.name },
-            {email: dto.email }
-        ]});
+        const duplicatedCustomer = await this.customersRepository.exists({
+            where: [{ name: dto.name }, { email: dto.email }]
+        });
 
         if (duplicatedCustomer) {
-            throw new Error("There is already a customer with same name or email.");
+            throw new Error(
+                'There is already a customer with same name or email.'
+            );
         }
-        
+
         const savedCustomer = await this.customersRepository.save(dto);
         return savedCustomer.id;
     }
 
     async delete(id: number): Promise<void> {
-        this.customersRepository.delete({ id });
+        await this.customersRepository.delete({ id });
     }
 }

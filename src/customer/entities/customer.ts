@@ -1,5 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { CustomerType } from "./customer-type";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { CustomerType } from './customer-type';
 
 @Entity()
 export class Customer {
@@ -15,6 +15,6 @@ export class Customer {
     @Column()
     governmentIdentification: string;
 
-    @Column({ type: 'enum', enum: CustomerType})
+    @Column({ type: 'enum', enum: CustomerType })
     type: CustomerType;
 }
